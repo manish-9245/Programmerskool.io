@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Webpage</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/clike/clike.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/cpp/cpp.min.js"></script>
+        <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="container split">
+            <div class="split__left">
+              <div class="float-container">
+                <div class="float-child1">
+              <h3 style="margin-top: 2%;margin-bottom: 2%;margin-left: 2%;">C++ Programming Practice</h3>
+                </div>
+              <div class="float-child">
+              <form style="margin-top: 3%;" onsubmit="handleSubmit(event)">
+                <input type="text" id="link" name="link" value="" placeholder="Input Youtube Playlist Url"><input type="submit"  value="Submit" style="margin-left: 1%;">
+              </form>
+              
+              </div>
+            </div>
+            
+                <iframe
+                    width="100%"
+                    height="100%"
+                    position="sticky"
+                    id="player"
+                    title="YouTube video player"
+                    src="https://www.youtube.com/embed/videoseries?list=PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen
+                ></iframe>
+              
+            </div>
+            <div class="split__bar"></div>
+            <div class="split__right">
+              
+                <textarea id="code-editor" placeholder="type code here"></textarea>
+              
+                <button onclick="compileCode()" style="margin:0 auto;display:block;margin-top: 5%;">Compile and Run</button>
+                <div style="width: 100%;background-color: rgb(0, 0, 0); height:50%">
+                    <h3 style="text-align: center;color: beige;">Output</h3>
+                    <pre id="output" style="color: beige;"></pre>
+                </div>
+            </div>
+        </div>
+        <div class="info-button" title="Information">
+          <i class="fa fa-info-circle" aria-hidden="true" style="color:black"></i>
+        </div>
+      
+        <div class="info-tooltip">
+          <p>Paste C++ youtube playlist url that you want to watch, code simultaneously on the code editor. Use the division in middle to adjust your layout. Compile programs realtime on browser and get outputs.</p>
+        </div>
+        <script>
+          function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get the submitted playlist URL from the input field
+            var playlistUrl = document.getElementById("link").value;
+      
+            // Extract the playlist ID from the URL
+            var playlistId = extractPlaylistId(playlistUrl);
+            
+            // Clear the input field after processing
+            document.getElementById("link").value = "";
+      
+            // Update the iframe src with the playlist ID
+            var iframe = document.getElementById("player");
+            iframe.src = `https://www.youtube.com/embed/videoseries?list=${playlistId}`;
+          }
+      
+          function extractPlaylistId(url) {
+            // Extract the playlist ID from the URL
+            var regex = /(?<=list=)[^&/?]+/;
+            var match = url.match(regex);
+            return match ? match[0] : "";
+          }
+        </script>
+        <script>
+          var codeEditor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+            lineNumbers: true,
+            mode: "text/x-c++src",
+            theme: "default",
+            placeholder: "Enter your C++ code here..."
+          });
+      
+          function compileCode() {
+            var code = codeEditor.getValue();
+            var data = {
+              code: code,
+              compiler: "gcc-head",
+              stdin: "",
+              options: "-O2 -Wall -std=c++17 -pedantic-errors"
+            };
+      
+            $.ajax({
+              url: "https://wandbox.org/api/compile.json",
+              type: "POST",
+              data: JSON.stringify(data),
+              dataType: "json",
+              contentType: "application/json",
+              success: function(response) {
+                var output = response.program_message || response.compiler_message || response.compiler_output;
+                $("#output").text(output);
+              },
+              error: function(xhr, status, error) {
+                $("#output").text("Error: " + error);
+              }
+            });
+          }
+        </script>
+        
+        <script src="script.js"></script>
+    </body>
+</html>
