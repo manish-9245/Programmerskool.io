@@ -11,11 +11,11 @@
         <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
     </head>
     <body>
-        <div class="container split">
+        <div class="containersplit">
             <div class="split__left">
               <div class="float-container">
                 <div class="float-child1">
-              <h3 style="margin-top: 2%;margin-bottom: 2%;margin-left: 2%;">C++ Programming Practice</h3>
+              <h3 class="linear-wipe">C++ Programming Practice</h3>
                 </div>
               <div class="float-child">
               <form style="margin-top: 3%;" onsubmit="handleSubmit(event)">
@@ -44,7 +44,8 @@
                 <textarea id="code-editor" placeholder="type code here"></textarea>
               
                 <button onclick="compileCode()" style="margin:0 auto;display:block;margin-top: 5%;">Compile and Run</button>
-                <div style="width: 100%;background-color: rgb(0, 0, 0); height:50%">
+                <div style="width: 100%;background-color: rgb(0, 0, 0); height:50%;
+                bottom: 0;">
                     <h3 style="text-align: center;color: beige;">Output</h3>
                     <pre id="output" style="color: beige;"></pre>
                 </div>
