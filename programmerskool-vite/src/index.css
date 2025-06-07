@@ -1,0 +1,309 @@
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for animations and specific components */
+@keyframes shine {
+  to { background-position: 200% center; }
+}
+
+/* Global box-sizing and full screen setup */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content container should take 80% height */
+.main-content-container {
+  height: 80vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure content areas are properly contained */
+.content-panel {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Better input styling */
+.modern-input {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.modern-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1), 0 4px 8px rgba(0, 0, 0, 0.04);
+  transform: translateY(-1px);
+}
+
+.modern-input::placeholder {
+  color: #64748b;
+  font-weight: 400;
+}
+
+/* Better button styling */
+.modern-button {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+}
+
+.modern-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, #1e40af, #1e3a8a);
+}
+
+.modern-button:active {
+  transform: translateY(0);
+}
+
+/* Chat-like tooltip */
+.chat-tooltip {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  max-width: 320px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.chat-tooltip::before {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: -8px;
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-left: none;
+  border-bottom: none;
+  transform: rotate(45deg);
+}
+
+/* Draggable divider styles */
+.draggable-divider {
+  position: relative;
+  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+  border: 1px solid #94a3b8;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.draggable-divider:hover {
+  background: linear-gradient(135deg, #cbd5e1, #94a3b8);
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+
+.draggable-divider.dragging {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+}
+
+.vertical-divider {
+  width: 8px;
+  min-width: 8px;
+  cursor: col-resize;
+}
+
+.vertical-divider:hover {
+  transform: scaleX(1.25);
+}
+
+.vertical-divider.dragging {
+  transform: scaleX(1.5);
+}
+
+.horizontal-divider {
+  height: 8px;
+  min-height: 8px;
+  cursor: row-resize;
+  width: 100%;
+}
+
+.horizontal-divider:hover {
+  transform: scaleY(1.25);
+}
+
+.horizontal-divider.dragging {
+  transform: scaleY(1.5);
+}
+
+/* Enhanced panel transitions */
+.resizable-panel {
+  transition: width 0.1s cubic-bezier(0.4, 0, 0.2, 1), 
+              height 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Disable transitions during drag for smoother performance */
+.no-transition {
+  transition: none !important;
+}
+
+/* Prevent text selection during drag */
+body.dragging {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
+/* Fix CodeMirror text alignment and styling with proper overflow handling */
+.cm-editor {
+  height: 100% !important;
+  text-align: left !important;
+  /* Allow scrolling when content overflows */
+  overflow: auto !important;
+}
+
+.cm-focused {
+  outline: none;
+}
+
+.cm-content {
+  padding: 16px !important;
+  font-family: 'JetBrains Mono', 'Fira Code', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  text-align: left !important;
+  min-height: 100% !important;
+}
+
+.cm-line {
+  text-align: left !important;
+}
+
+.cm-cursor {
+  border-left: 1px solid #000 !important;
+}
+
+/* Better scrollbar for code editor */
+.cm-scroller {
+  font-family: inherit !important;
+  overflow: auto !important;
+  max-height: 100% !important;
+}
+
+/* Ensure proper scrolling in CodeMirror */
+.cm-editor .cm-scroller {
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+}
+
+/* Output panel scrolling */
+.output-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: #64748b #f1f5f9;
+}
+
+.output-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.output-container::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.output-container::-webkit-scrollbar-thumb {
+  background: #64748b;
+  border-radius: 4px;
+}
+
+.output-container::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Ensure iframe has proper aspect ratio and responsiveness */
+iframe {
+  aspect-ratio: 16/9;
+  min-height: 200px;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .vertical-divider {
+    width: 12px;
+    min-width: 12px;
+  }
+  
+  .horizontal-divider {
+    height: 12px;
+    min-height: 12px;
+  }
+  
+  /* Stack layout on mobile */
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  
+  .mobile-stack .vertical-divider {
+    display: none;
+  }
+  
+  .mobile-panel {
+    width: 100% !important;
+    height: 50% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small screens */
+  .text-4xl {
+    font-size: 2rem !important;
+  }
+  
+  .p-6 {
+    padding: 1rem !important;
+  }
+  
+  .gap-6 {
+    gap: 1rem !important;
+  }
+}
