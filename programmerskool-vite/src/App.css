@@ -1,8 +1,224 @@
+/* Video dragging and resizing styles */
+.dragging {
+  user-select: none !important;
+}
+
+.dragging * {
+  pointer-events: none !important;
+}
+
+.dragging .video-component {
+  pointer-events: auto !important;
+}
+
+.dragging .video-component iframe {
+  pointer-events: none !important;
+}
+
+.resizing {
+  user-select: none !important;
+}
+
+.resizing * {
+  pointer-events: none !important;
+}
+
+.resizing .video-component {
+  pointer-events: auto !important;
+}
+
+.resizing .video-component iframe {
+  pointer-events: none !important;
+}
+
+/* Video component specific styles */
+.video-component {
+  will-change: transform;
+  position: fixed !important;
+  backdrop-filter: blur(10px);
+  transition: box-shadow 0.2s ease;
+}
+
+.video-component:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.video-component:hover .resize-handle {
+  opacity: 1;
+}
+
+.video-component .resize-handle {
+  opacity: 0.6;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+/* Smooth transitions for resizable panels */
+.resizable-panel {
+  transition: all 0.2s ease-out;
+}
+
+.no-transition {
+  transition: none !important;
+}
+
+/* Video component styling */
+.video-container {
+  position: relative;
+}
+
+.resize-handle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  cursor: nw-resize;
+  z-index: 10;
+}
+
+.resize-handle:hover {
+  opacity: 0.8;
+}
+
+/* Draggable divider styling */
+.draggable-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f5f9;
+  transition: background-color 0.2s ease;
+  user-select: none;
+  z-index: 10; /* Lower z-index than video */
+  border: 1px solid #e2e8f0;
+}
+
+.horizontal-divider {
+  height: 10px;
+  cursor: row-resize;
+  width: 100%;
+}
+
+.vertical-divider {
+  width: 10px;
+  cursor: col-resize;
+  height: 100%;
+}
+
+.draggable-divider:hover {
+  background-color: #e2e8f0;
+}
+
+.draggable-divider.dragging {
+  background-color: #64748b !important;
+  z-index: 50; /* Higher when dragging but still below video */
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  
+  .mobile-panel {
+    width: 100% !important;
+    height: 50% !important;
+  }
+}
+
+/* Override default styles */
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  height: 100vh;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Modern card styling */
+.card {
+  border-radius: 12px;
+  border: 1px solid rgba(229, 231, 235, 0.5);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+/* Professional button styling */
+.btn-professional {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+/* Input styling improvements */
+.input-modern {
+  font-size: 0.875rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.input-modern:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background-color: #ffffff;
+}
+
+/* CodeMirror customization */
+.cm-editor {
+  border-radius: 0 !important;
+  background: #ffffff !important;
+}
+
+.cm-focused {
+  outline: none !important;
+}
+
+.cm-scroller {
+  font-family: 'JetBrains Mono', 'Fira Code', 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace !important;
+  line-height: 1.6 !important;
+}
+
+.cm-gutters {
+  background-color: #f8fafc !important;
+  border-right: 1px solid #e2e8f0 !important;
+}
+
+.cm-activeLineGutter {
+  background-color: #e2e8f0 !important;
+}
+
+.cm-activeLine {
+  background-color: rgba(59, 130, 246, 0.05) !important;
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Button hover effects */
+.button-hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Terminal styling improvements */
+.terminal-window {
+  background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.terminal-content {
+  text-shadow: 0 0 2px rgba(34, 197, 94, 0.5);
 }
 
 .logo {
